@@ -114,3 +114,18 @@ En el repo hay un notebook de ejemplo para que pruebes si hay o no GPU en tu má
 ![Python 3.10.12](./images/python-3.10.12-usr-bin.png)
 
 A partir de ahora ya puedes trabajar con el notebook desde VSCode y se estará ejecutando todo dentro del contenedor
+
+## Cómo puedo saber si mi notebook está realmente utilizando la GPU
+
+Lo primero que puedes hacer es comprobar que realmente tienes la GPU NVIDIA disponible en tu contenedor, para ello desde la opción "Terminal" de la barra de menú de VSCode elige "New Terminal" y eso te abrirá un shell, ejecuta:
+```bash
+nvidia-smi
+````
+Te debería salir una pantalla con las características de tu GPU, versiónd del driver y versión de CUDA.
+
+Además, cuando estés ejecutando un notebook y veas la evolución de tus epoch, puedes ejecutar el siguiente comando en esa misma terminal, que te irá mostrando lo mismo que antes, pero con un refresco de un segundo:
+```bash
+watch -n 1 nvidia-smi
+````
+Y verás el porcentaje de uso de tu GPU así como la cantidad de memoria de la misma en uso:
+![Uso de la GPU](./images/nvidia-smi.png)
