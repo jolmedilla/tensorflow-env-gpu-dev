@@ -126,6 +126,18 @@ Te debería salir una pantalla con las características de tu GPU, versiónd del
 Además, cuando estés ejecutando un notebook y veas la evolución de tus epoch, puedes ejecutar el siguiente comando en esa misma terminal, que te irá mostrando lo mismo que antes, pero con un refresco de un segundo:
 ```bash
 watch -n 1 nvidia-smi
-````
+```
 Y verás el porcentaje de uso de tu GPU así como la cantidad de memoria de la misma en uso:
 ![Uso de la GPU](./images/nvidia-smi.png)
+
+## Nota sobre el entorno en EC2
+
+Como se comenta más arriba, este entorno se ha probado en una máquina EC2 de AWS con soporte GPU. Explico muy brevemente como replicar los pasos que yo he seguido, aunque no me voy a extender mucho en ello:
+1. Lanza tu instancia de EC2, creando un par de claves ssh y configurando `.ssh/config` para que las utilice automáticamente contra la IP pública (no me extiendo aquí en ésto)
+3. Abre VSCode en tu copia local de este repo
+2. Lanza la conexión remota con Ctrl+Shit+P y luego buscando "Remote-SSH: Connect to Host..."
+3. Pon la IP pública o el alias que hayas usado para ella en `.ssh/config`
+4. Ahora se abre una nueva ventana de VSCode y puedes copiar el repo desde la ventana local de VSCode o el explorador de ficheros a la ventana remota de VSCode
+5. A partir de ahora puedes continuar en el paso 3 de la sección de "Uso del entorno" como si estuvieras en local.
+
+Es importante que elijas una AMI que ya incluya, además del soporte GPU, la instalación de docker o que la instales tú en la instancia una vez arrancada. Yo he utilizado la AMI "Deep Learning OSS Nvidia Driver AMI GPU TensorFlow 2.18 (Ubuntu 22.04) 20241213" con id "ami-00dab7aa6afcd90b5" que ya viene con docker pre-instalado. Para el hardware he utilizado una instancia `g4dn.xlarge` que tiene un coste razonable, de 0,526 $/hora.
